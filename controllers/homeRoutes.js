@@ -25,20 +25,24 @@ router.get('/', async (req, res) =>{
     }
 });
 
-router.get('/blog_post/:id', async (req, res) => {
+router.get('/topic/:id', async (req, res) => {
+    // add 
     try {
         const blogData = await BlogPost.findByPk(req.params.id, {
             include: [
+                User,
                 {
-                model: User,
-                attributes: ['name']
+                model: Comment,
+                attributes: [
+                    User
+                ]
                 },
             ],
         });
-    const blogPost = blogData.get({ plain:true });
+    const blogPosts = blogData.get({ plain:true });
 
-    res.render('blog_post', {
-        blogPost,
+    res.render('topic', {
+        blogPosts,
         
         logged_in: req.session.logged_in
     });
