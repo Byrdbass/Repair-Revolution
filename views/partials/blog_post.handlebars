@@ -4,13 +4,14 @@
     <a href="/topic/{{id}}">{{topic}}</a>
     <div class="card-content hoverable">
         {{!-- <p>{{topic}}</p> --}}
-       <p>{{content}}</p> 
+        <p>{{content}}</p>
+        <span class="card-title activator grey-text text-darken-4"><i class="material-icons right"></i></span>
+        <p>{{format_date date_created}}</p>
 
         <span class="card-title activator grey-text text-darken-4"><i class="material-icons right"></i></span>
         <p>
             {{!-- <a href="/topic/{{blogPost.id}}"> --}}
-        Posted By: {{user.name}}</a></p>
+                Posted By: {{user.name}}</a></p>
     </div>
 </div>
 {{>commentForm}}
-

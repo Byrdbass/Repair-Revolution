@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { BlogPost, User } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', async (req, res) =>{
+router.get('/', async (req, res) => {
     try {
         const blogData = await BlogPost.findAll({
             include: [
@@ -25,33 +25,37 @@ router.get('/', async (req, res) =>{
     }
 });
 
-router.get('/topic/:id', async (req, res) => {
+router.get('/topic/:id', withAuth, async (req, res) => {
     // add 
+    if (!req.session.logged_in) {
+        res.redirect('/login');
+        return;
+    }
     try {
         const blogData = await BlogPost.findByPk(req.params.id, {
             include: [
                 User,
                 {
-                model: Comment,
-                attributes: [
-                    User
-                ]
+                    model: Comment,
+                    include: [
+                        User
+                    ]
                 },
             ],
         });
-    const blogPosts = blogData.get({ plain:true });
+        const blogPosts = blogData.get({ plain: true });
+            console.log(blogPosts)
+        res.render('topic', {
+            blogPosts,
 
-    res.render('topic', {
-        blogPosts,
-        
-        logged_in: req.session.logged_in
-    });
+            logged_in: req.session.logged_in
+        });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-router.get('/blogForm', withAuth, async(req,res) =>{
+router.get('/blogForm', withAuth, async (req, res) => {
     console.log('this is the blogForm route')
     if (!req.session.logged_in) {
         res.redirect('/login');
@@ -70,16 +74,16 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-router.post('/comment', async (req,res) => {
-    console.log ('this is the comment route')
-        try {
-            const commentData = await Comments.create({
+router.post('/comment', async (req, res) => {
+    console.log('this is the comment route')
+    try {
+        const commentData = await Comments.create({
             ...req.body,
             user_id: req.session.user_id,
         });
-        res.status(200).json({message: "comment successfully created"});
+        res.status(200).json({ message: "comment successfully created" });
     } catch (err) {
-        res.status(400).json({ message: "error posting comment"})
+        res.status(400).json({ message: "error posting comment" })
     }
 })
 

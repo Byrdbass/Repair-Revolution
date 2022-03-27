@@ -1,23 +1,49 @@
- <div class="divider"></div>
-    <nav class="nav-extended">
-        <div class="nav-wrapper black">
-            <a href="/" class="brand-logo" style="font-family: 'Source Code Pro', monospace;">REPAIR REVOLUTION</a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Login/Logout</i></a>
-            {{!-- need to add javascript for materilize to hide/show the sidenav-trigger --}}
-            <a href="/" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Login</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/blogForm"><button class="btn waves-effect waves-light right" type="submit" name="action"> create
-                        Discussion</button></a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
+<div class="divider"></div>
+<nav class="nav-extended">
+    <div class="nav-wrapper black">
+        <a href="/" class="brand-logo" style="font-family: 'Source Code Pro', monospace;">
+            REPAIR REVOLUTION
+        </a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">
+                Login/Logout
+            </i>
+        </a>
+        {{!-- need to add javascript for materilize to hide/show the sidenav-trigger --}}
+        <a href="/" data-target="mobile-demo" class="sidenav-trigger "
+            style="font-family: 'Source Code Pro', monospace;"><i class="material-icons">Login</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+                <a href="/blogForm"
+                     
+                    style="font-family: 'Source Code Pro', monospace;"
+                    type="submit" name="action">
+                        Create
+                        Discussion
+                    
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard" style="font-family: 'Source Code Pro', monospace;">
+                    Dashboard
+                </a>
+            </li>
 
-                {{#if logged_in}}
-                <li><a class="logout">Logout</a></li>
-                {{else}}
-                <li><a class="login" href="/login">Login</a></li>
-                {{/if}}
-            </ul>
-        </div>
-    </nav>
+            {{#if logged_in}}
+            <li>
+                <a class="logout" style="font-family: 'Source Code Pro', monospace;">
+                    Logout
+                </a>
+            </li>
+            {{else}}
+            <li>
+                <a class="login" style="font-family: 'Source Code Pro', monospace;" href="/login">
+                    Login
+                </a>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>
 
 <script src="/js/logout.js"></script>
-
