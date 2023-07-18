@@ -3,8 +3,23 @@ require('dotenv').config({ path: require('find-config')('.env') });
 
 let sequelize;
 
-if (process.env.JAWSDB_URL) {
-  sequelize = new Sequelize(process.env.JAWSDB_URL);
+if (process.env.RDS_HOSTNAME) {
+  sequelize = new Sequelize(process.env.RDS_DB_NAME, 
+    process.env.RDS_USERNAME,
+    process.env.RDS_PASSWORD,
+    {
+      host: process.env.RDS_HOSTNAME,
+      port: 3306,
+      logging: console.log,
+      maxConcurrentQueries: 100,
+      dialect: 'mysql',
+      dialectOptions: {
+          ssl:'Amazon RDS'
+      },
+      pool: { maxConnections: 5, maxIdleTime: 30},
+      language: 'en'
+    }
+    );
 } else {
   sequelize = new Sequelize(
     process.env.DB_NAME,
